@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/app"
+    app:startDestination="@id/projetoFragment">
+
+    <fragment
+        android:id="@+id/projetoFragment"
+        android:name="com.github.joaophi.integrador_ix.projeto.ProjetoFragment"
+        android:label="ProjetoFragment"
+        tools:layout="@layout/fragment_projeto">
+        <action
+            android:id="@+id/action_projetoFragment_to_requisitoFragment"
+            app:destination="@id/requisitoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/requisitoFragment"
+        android:name="com.github.joaophi.integrador_ix.requisito.RequisitoFragment"
+        android:label="fragment_requisito"
+        tools:layout="@layout/fragment_requisito" />
+</navigation>
