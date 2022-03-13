@@ -1,13 +1,11 @@
 package com.github.joaophi.integrador_ix
 
 import android.os.Bundle
-import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.flowWithLifecycle
-import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.github.joaophi.integrador_ix.databinding.ActivityInicioBinding
@@ -27,8 +25,6 @@ fun TextInputEditText.bind(lifecycle: Lifecycle, stateFlow: MutableStateFlow<Str
 }
 
 class InicioActivity : AppCompatActivity() {
-    private lateinit var navController: NavController
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -36,15 +32,15 @@ class InicioActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val navHostFragment: NavHostFragment = binding.navHost.getFragment()
-        navController = navHostFragment.navController
-        NavigationUI.setupActionBarWithNavController(activity = this, navController)
-    }
+        val navController = navHostFragment.navController
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> navController.navigateUp()
-            else -> super.onOptionsItemSelected(item)
+        NavigationUI.setupActionBarWithNavController(activity = this, navController)
+        addMenuProvider(owner = this) { menuItem ->
+            when (menuItem.itemId) {
+                android.R.id.home -> navController.navigateUp()
+                else -> return@addMenuProvider false
+            }
+            true
         }
-        return true
     }
 }

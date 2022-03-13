@@ -10,12 +10,12 @@ import androidx.lifecycle.LifecycleOwner
 
 fun MenuHost.addMenuProvider(
     owner: LifecycleOwner,
-    @MenuRes menuRes: Int,
+    @MenuRes menuRes: Int? = null,
     onMenuItemSelected: (MenuItem) -> Boolean,
 ) {
     addMenuProvider(object : MenuProvider {
         override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater): Unit =
-            menuInflater.inflate(menuRes, menu)
+            menuRes?.let { menuInflater.inflate(menuRes, menu) } ?: Unit
 
         override fun onMenuItemSelected(menuItem: MenuItem): Boolean = onMenuItemSelected(menuItem)
     }, owner)

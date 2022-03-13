@@ -1,4 +1,4 @@
-package com.github.joaophi.integrador_ix.projeto
+package com.github.joaophi.integrador_ix.projetos.projeto
 
 import android.os.Bundle
 import android.view.View
