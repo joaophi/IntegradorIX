@@ -4,40 +4,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/app"
     app:startDestination="@id/projetosFragment">
-
+    <fragment
+        android:id="@+id/projetosFragment"
+        android:name="com.github.joaophi.integrador_ix.projetos.ProjetosFragment"
+        android:label="Projetos"
+        tools:layout="@layout/fragment_projetos">
+        <action
+            android:id="@+id/action_projetosFragment_to_projetoFragment"
+            app:destination="@id/projetoFragment" />
+    </fragment>
     <fragment
         android:id="@+id/projetoFragment"
         android:name="com.github.joaophi.integrador_ix.projetos.projeto.ProjetoFragment"
-        android:label="ProjetoFragment"
+        android:label="Projeto"
         tools:layout="@layout/fragment_projeto">
         <action
             android:id="@+id/action_projetoFragment_to_requisitoFragment"
             app:destination="@id/requisitoFragment" />
         <argument
             android:name="id"
-            app:argType="integer"
-            android:defaultValue="-1" />
+            android:defaultValue="-1"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/requisitoFragment"
         android:name="com.github.joaophi.integrador_ix.projetos.projeto.requisito.RequisitoFragment"
-        android:label="fragment_requisito"
+        android:label="Requisito"
         tools:layout="@layout/fragment_requisito">
         <argument
             android:name="projetoId"
             app:argType="integer" />
         <argument
             android:name="id"
-            app:argType="integer"
-            android:defaultValue="-1" />
-    </fragment>
-    <fragment
-        android:id="@+id/projetosFragment"
-        android:name="com.github.joaophi.integrador_ix.projetos.ProjetosFragment"
-        android:label="fragment_projetos"
-        tools:layout="@layout/fragment_projetos">
-        <action
-            android:id="@+id/action_projetosFragment_to_projetoFragment"
-            app:destination="@id/projetoFragment" />
+            android:defaultValue="-1"
+            app:argType="integer" />
     </fragment>
 </navigation>

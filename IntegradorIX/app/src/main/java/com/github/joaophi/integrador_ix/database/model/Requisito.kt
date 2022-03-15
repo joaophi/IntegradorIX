@@ -1,10 +1,13 @@
 package com.github.joaophi.integrador_ix.database.model
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import kotlinx.parcelize.Parcelize
 import java.time.LocalDate
 
+@Parcelize
 @Entity(
     tableName = "requisito",
     primaryKeys = ["id_projeto", "id"],
@@ -35,4 +38,4 @@ data class Requisito(
 
     @ColumnInfo(name = "horas_para_conclucao")
     val horasParaConclucao: Int,
-)
+) : Parcelable

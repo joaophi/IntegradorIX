@@ -6,15 +6,21 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import androidx.navigation.navGraphViewModels
 import com.github.joaophi.integrador_ix.R
 import com.github.joaophi.integrador_ix.addMenuProvider
 import com.github.joaophi.integrador_ix.databinding.FragmentRequisitoBinding
+import com.github.joaophi.integrador_ix.projetos.projeto.ProjetoViewModel
 import com.google.android.material.R as RM
 
 class RequisitoFragment : Fragment(R.layout.fragment_requisito) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val binding = FragmentRequisitoBinding.bind(view)
+        val viewModel: ProjetoViewModel by navGraphViewModels(R.id.projetoFragment)
+        val args: RequisitoFragmentArgs by navArgs()
 
         fun limparErros() {
             binding.tilDescricao.error = null

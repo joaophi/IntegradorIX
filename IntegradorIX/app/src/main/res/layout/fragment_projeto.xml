@@ -1,68 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="4dp"
     tools:context=".projetos.projeto.ProjetoFragment">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilNome"
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        android:hint="Nome"
-        app:errorEnabled="true">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="4dp">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edtNome"
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:text="Projeto"
+            android:textAppearance="?attr/textAppearanceHeadline4" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilNome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text" />
+            android:layout_margin="4dp"
+            android:hint="Nome"
+            app:errorEnabled="true">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtNome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilInicio"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        android:hint="Inicio"
-        app:errorEnabled="true"
-        app:helperText="Ex.: 31/12/2022">
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edtInicio"
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilInicio"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:hint="Inicio"
+                app:errorEnabled="true"
+                app:helperText="Ex.: 31/12/2022">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtInicio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="date" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilEstimativa"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:hint="Estimativa"
+                app:errorEnabled="true"
+                app:helperText="Ex.: 31/12/2022">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtEstimativa"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="date" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="date" />
+            android:layout_margin="4dp"
+            android:text="Requisitos"
+            android:textAppearance="?attr/textAppearanceHeadline4" />
 
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilEstimativa"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        android:hint="Estimativa"
-        app:errorEnabled="true"
-        app:helperText="Ex.: 31/12/2022">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edtEstimativa"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvRequisitos"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="date" />
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
-    </com.google.android.material.textfield.TextInputLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnRequisito"
-        android:layout_width="match_parent"
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/btnNovo"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        android:text="Adicionar requisito" />
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:text="Novo"
+        app:icon="@drawable/ic_baseline_add_24" />
 
-</androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
