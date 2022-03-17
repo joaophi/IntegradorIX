@@ -2,13 +2,20 @@ package com.github.joaophi.integrador_ix.projetos.projeto
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
+import com.github.joaophi.integrador_ix.Action
 import com.github.joaophi.integrador_ix.R
 import com.github.joaophi.integrador_ix.addMenuProvider
 import com.github.joaophi.integrador_ix.bind
 import com.github.joaophi.integrador_ix.databinding.FragmentProjetoBinding
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.merge
+import kotlinx.coroutines.flow.onEach
 
 class ProjetoFragment : Fragment(R.layout.fragment_projeto) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -30,6 +37,10 @@ class ProjetoFragment : Fragment(R.layout.fragment_projeto) {
             navController.navigate(action)
         }
         binding.rvRequisitos.adapter = adapter
+        viewModel.requisitos
+            .onEach(adapter::submitList)
+            .flowWithLifecycle(viewLifecycleOwner.lifecycle)
+            .launchIn(viewLifecycleOwner.lifecycleScope)
 
         binding.btnNovo.setOnClickListener {
             val action = ProjetoFragmentDirections
@@ -45,5 +56,22 @@ class ProjetoFragment : Fragment(R.layout.fragment_projeto) {
             }
             true
         }
+
+        merge(viewModel.save, viewModel.delete)
+            .onEach {
+                when (it) {
+                    Action.Running -> Unit
+                    is Action.Error -> {
+                        val text = "Erro: ${it.throwable.message}"
+                        Toast.makeText(requireContext(), text, Toast.LENGTH_LONG).show()
+                    }
+                    Action.Done -> {
+                        findNavController().navigateUp()
+                        Toast.makeText(requireContext(), "Ok", Toast.LENGTH_LONG).show()
+                    }
+                }
+            }
+            .flowWithLifecycle(viewLifecycleOwner.lifecycle)
+            .launchIn(viewLifecycleOwner.lifecycleScope)
     }
 }

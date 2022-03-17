@@ -44,6 +44,7 @@ android {
 }
 
 dependencies {
+    implementation("androidx.legacy:legacy-support-v4:1.0.0")
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5")
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")

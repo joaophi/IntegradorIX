@@ -18,6 +18,15 @@ abstract class ProjetoDao {
     @Query(
         value = """
             SELECT *
+            FROM projeto
+            WHERE id = :id
+        """
+    )
+    abstract suspend fun getProjeto(id: Int): Projeto?
+
+    @Query(
+        value = """
+            SELECT *
             FROM requisito
             WHERE id_projeto = :id
         """
@@ -63,7 +72,7 @@ abstract class ProjetoDao {
     @Transaction
     open suspend fun save(projeto: Projeto, requisitos: List<Requisito>) {
         val id = when {
-            projeto.id > 0 -> projeto.id
+            projeto.id > -1 -> projeto.id
             else -> getId()
         }
         upsertProjeto(projeto.copy(id = id))

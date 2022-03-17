@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/app"
-    app:startDestination="@id/projetosFragment">
+    app:startDestination="@id/menuFragment">
     <fragment
         android:id="@+id/projetosFragment"
         android:name="com.github.joaophi.integrador_ix.projetos.ProjetosFragment"
@@ -38,5 +38,14 @@
             android:name="id"
             android:defaultValue="-1"
             app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/menuFragment"
+        android:name="com.github.joaophi.integrador_ix.inicio.MenuFragment"
+        android:label="fragment_menu"
+        tools:layout="@layout/fragment_menu" >
+        <action
+            android:id="@+id/action_menuFragment_to_projetosFragment"
+            app:destination="@id/projetosFragment" />
     </fragment>
 </navigation>

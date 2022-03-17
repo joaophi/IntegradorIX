@@ -2,17 +2,19 @@ package com.github.joaophi.integrador_ix.projetos.projeto.requisito
 
 import android.os.Bundle
 import android.view.View
-import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.navGraphViewModels
-import com.github.joaophi.integrador_ix.R
-import com.github.joaophi.integrador_ix.addMenuProvider
+import com.github.joaophi.integrador_ix.*
 import com.github.joaophi.integrador_ix.databinding.FragmentRequisitoBinding
 import com.github.joaophi.integrador_ix.projetos.projeto.ProjetoViewModel
-import com.google.android.material.R as RM
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.merge
+import kotlinx.coroutines.flow.onEach
 
 class RequisitoFragment : Fragment(R.layout.fragment_requisito) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -22,73 +24,55 @@ class RequisitoFragment : Fragment(R.layout.fragment_requisito) {
         val viewModel: ProjetoViewModel by navGraphViewModels(R.id.projetoFragment)
         val args: RequisitoFragmentArgs by navArgs()
 
-        fun limparErros() {
-            binding.tilDescricao.error = null
-            binding.tilImportancia.error = null
-            binding.tilDificuldade.error = null
-            binding.tilHoras.error = null
-        }
+        viewModel.carregarRequisito(args.id)
 
         requireActivity().addMenuProvider(viewLifecycleOwner, R.menu.save_delete) { item ->
             when (item.itemId) {
-                R.id.btnSave -> {
-                    limparErros()
-                    var erro = false
-
-                    val descricao = binding.edtDescricao.text
-                    if (descricao.isNullOrBlank()) {
-                        binding.tilDescricao.error = "Campo em branco"
-                        erro = true
-                    }
-
-                    val importancia = binding.edtImportancia.text?.toString()?.toIntOrNull()
-                    if (importancia == null) {
-                        binding.tilImportancia.error = "Campo em branco"
-                        erro = true
-                    }
-
-                    val dificuldade = binding.edtDificuldade.text?.toString()?.toIntOrNull()
-                    if (dificuldade == null) {
-                        binding.tilDificuldade.error = "Campo em branco"
-                        erro = true
-                    }
-
-                    val tempo = binding.edtHoras.text?.toString()?.toIntOrNull()
-                    if (tempo == null) {
-                        binding.tilHoras.error = "Campo em branco"
-                        erro = true
-                    }
-
-                    if (!erro) {
-                        Toast.makeText(
-                            requireContext(),
-                            """
-                            Salvo:
-                                Descrição: $descricao
-                                Importância: $importancia
-                                Dificultade: $dificuldade
-                                Tempo(Horas): $tempo
-                            """.trimIndent(),
-                            Toast.LENGTH_LONG,
-                        ).show()
-                        findNavController().navigateUp()
-                    }
-                }
-                R.id.btnDelete -> {
-                    Toast.makeText(requireContext(), "Excluido", Toast.LENGTH_LONG).show()
-                    findNavController().navigateUp()
-                }
+                R.id.btnSave -> viewModel.saveRequsito()
+                R.id.btnDelete -> viewModel.deleteRequisito()
                 else -> return@addMenuProvider false
             }
             true
         }
 
-        val adapter = ArrayAdapter(
-            requireContext(),
-            RM.layout.support_simple_spinner_dropdown_item,
-            (1..10).toList(),
+        binding.edtDescricao.bind(
+            viewLifecycleOwner,
+            viewModel.descricaoRequisito,
+            viewModel.descricaoRequisitoError,
         )
-        binding.edtImportancia.setAdapter(adapter)
-        binding.edtDificuldade.setAdapter(adapter)
+        binding.edtImportancia.bind(
+            viewLifecycleOwner,
+            viewModel.importanciaRequisitoOpcoes,
+            viewModel.importanciaRequisito,
+            viewModel.importanciaRequisitoError,
+        )
+        binding.edtDificuldade.bind(
+            viewLifecycleOwner,
+            viewModel.dificuldadeRequisitoOpcoes,
+            viewModel.dificuldadeRequisito,
+            viewModel.dificuldadeRequisitoError,
+        )
+        binding.edtHoras.bindNumber(
+            viewLifecycleOwner,
+            viewModel.tempoRequisito,
+            viewModel.tempoRequisitoError,
+        )
+
+        merge(viewModel.saveRequisito, viewModel.deleteRequisito)
+            .onEach {
+                when (it) {
+                    Action.Running -> Unit
+                    is Action.Error -> {
+                        val text = "Erro: ${it.throwable.message}"
+                        Toast.makeText(requireContext(), text, Toast.LENGTH_LONG).show()
+                    }
+                    Action.Done -> {
+                        findNavController().navigateUp()
+                        Toast.makeText(requireContext(), "Ok", Toast.LENGTH_LONG).show()
+                    }
+                }
+            }
+            .flowWithLifecycle(viewLifecycleOwner.lifecycle)
+            .launchIn(viewLifecycleOwner.lifecycleScope)
     }
 }
