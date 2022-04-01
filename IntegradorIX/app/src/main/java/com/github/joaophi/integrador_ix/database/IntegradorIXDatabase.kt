@@ -20,7 +20,10 @@ class Converters {
         Projeto::class,
         Requisito::class,
     ],
-    version = 1,
+    version = 2,
+    autoMigrations = [
+        AutoMigration(from = 1, to = 2)
+    ],
 )
 @TypeConverters(Converters::class)
 abstract class IntegradorIXDatabase : RoomDatabase() {

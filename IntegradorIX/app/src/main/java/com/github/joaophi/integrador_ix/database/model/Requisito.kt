@@ -5,6 +5,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import kotlinx.parcelize.Parcelize
+import java.sql.Types
 import java.time.LocalDate
 
 @Parcelize
@@ -38,4 +39,16 @@ data class Requisito(
 
     @ColumnInfo(name = "horas_para_conclucao")
     val horasParaConclucao: Int,
+
+    @ColumnInfo(name = "latitude")
+    val latitude: Double?,
+
+    @ColumnInfo(name = "longitude")
+    val longitude: Double?,
+
+    @ColumnInfo(name = "foto1")
+    val foto1: String?,
+
+    @ColumnInfo(name = "foto2")
+    val foto2: String?,
 ) : Parcelable

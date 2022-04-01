@@ -1,15 +1,18 @@
 package com.github.joaophi.integrador_ix
 
 import android.annotation.SuppressLint
+import android.os.Looper
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.asFlow
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationResult
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.awaitCancellation
-import kotlinx.coroutines.flow.FlowCollector
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.*
 import kotlin.properties.PropertyDelegateProvider
 import kotlin.properties.ReadOnlyProperty
 
@@ -55,4 +58,16 @@ private class WrapperStateFlow<T>(private val liveData: MutableLiveData<T>) : Mu
         liveData.asFlow().distinctUntilChanged().collect(collector)
         awaitCancellation()
     }
+}
+
+@SuppressLint("MissingPermission")
+fun FusedLocationProviderClient.locationFlow(request: LocationRequest) = callbackFlow {
+    val callback = object : LocationCallback() {
+        override fun onLocationResult(result: LocationResult) {
+            super.onLocationResult(result)
+            result.locations.forEach(::trySend)
+        }
+    }
+    requestLocationUpdates(request, callback, Looper.getMainLooper())
+    awaitClose { removeLocationUpdates(callback) }
 }

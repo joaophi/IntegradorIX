@@ -42,8 +42,8 @@
     <fragment
         android:id="@+id/menuFragment"
         android:name="com.github.joaophi.integrador_ix.inicio.MenuFragment"
-        android:label="fragment_menu"
-        tools:layout="@layout/fragment_menu" >
+        android:label="Menu"
+        tools:layout="@layout/fragment_menu">
         <action
             android:id="@+id/action_menuFragment_to_projetosFragment"
             app:destination="@id/projetosFragment" />

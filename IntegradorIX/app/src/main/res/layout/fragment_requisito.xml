@@ -74,4 +74,42 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvLatitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:textAppearance="?attr/textAppearanceHeadline5"
+        tools:text="Latitude: 50º" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvLongitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:textAppearance="?attr/textAppearanceHeadline5"
+        tools:text="Longitude: 50º" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivImage1"
+            android:layout_width="170dp"
+            android:layout_height="170dp"
+            android:layout_margin="4dp"
+            android:background="?attr/colorControlHighlight"
+            tools:src="@drawable/ic_baseline_add_a_photo_24" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivImage2"
+            android:layout_width="170dp"
+            android:layout_height="170dp"
+            android:layout_margin="4dp"
+            android:background="?attr/colorControlHighlight"
+            tools:src="@drawable/ic_baseline_add_a_photo_24" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
 </androidx.appcompat.widget.LinearLayoutCompat>

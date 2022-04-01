@@ -10,6 +10,10 @@ import com.github.joaophi.integrador_ix.database.model.Projeto
 import com.github.joaophi.integrador_ix.database.model.Requisito
 import com.github.joaophi.integrador_ix.getStateFlow
 import com.github.joaophi.integrador_ix.launchAction
+import com.github.joaophi.integrador_ix.locationFlow
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationRequest.PRIORITY_HIGH_ACCURACY
+import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -150,6 +154,36 @@ class ProjetoViewModel(
         }
     }
 
+    private val carregaLocalizacao = MutableSharedFlow<Boolean>(
+        extraBufferCapacity = 1,
+        onBufferOverflow = BufferOverflow.DROP_OLDEST,
+    )
+
+    init {
+        val locationProvider = LocationServices.getFusedLocationProviderClient(application)
+        carregaLocalizacao
+            .flatMapLatest { carregaLocalizacao ->
+                when {
+                    carregaLocalizacao -> locationProvider
+                        .locationFlow(LocationRequest.create().setPriority(PRIORITY_HIGH_ACCURACY))
+                    else -> emptyFlow()
+                }
+            }
+            .onEach {
+                latitudeRequisito.value = it.latitude
+                longitudeRequisito.value = it.longitude
+            }
+            .launchIn(viewModelScope)
+    }
+
+    val latitudeRequisito by handle.getStateFlow<Double?>(initialValue = null)
+    val longitudeRequisito by handle.getStateFlow<Double?>(initialValue = null)
+
+    val tempFoto1Requisito by handle.getStateFlow<String?>(initialValue = null)
+    val tempFoto2Requisito by handle.getStateFlow<String?>(initialValue = null)
+    val foto1Requisito by handle.getStateFlow<String?>(initialValue = null)
+    val foto2Requisito by handle.getStateFlow<String?>(initialValue = null)
+
     fun carregarRequisito(id: Int) {
         idRequisito = id
         val requisito = requisitos.value.find { it.id == idRequisito }
@@ -158,11 +192,21 @@ class ProjetoViewModel(
             importanciaRequisito.value = null
             dificuldadeRequisito.value = null
             tempoRequisito.value = null
+            latitudeRequisito.value = null
+            longitudeRequisito.value = null
+            carregaLocalizacao.tryEmit(true)
+            foto1Requisito.value = null
+            foto2Requisito.value = null
         } else {
             descricaoRequisito.value = requisito.descricao
             importanciaRequisito.value = requisito.importancia
             dificuldadeRequisito.value = requisito.dificuldade
             tempoRequisito.value = requisito.horasParaConclucao
+            carregaLocalizacao.tryEmit(false)
+            latitudeRequisito.value = requisito.latitude
+            longitudeRequisito.value = requisito.longitude
+            foto1Requisito.value = requisito.foto1
+            foto2Requisito.value = requisito.foto2
         }
     }
 
@@ -189,7 +233,12 @@ class ProjetoViewModel(
                 importanciaRequisito.value!!,
                 dificuldadeRequisito.value!!,
                 tempoRequisito.value!!,
+                latitudeRequisito.value,
+                longitudeRequisito.value,
+                foto1Requisito.value,
+                foto2Requisito.value,
             )
+            carregaLocalizacao.tryEmit(false)
         }
     }
 

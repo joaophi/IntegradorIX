@@ -7,7 +7,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.DividerItemDecoration
 import com.github.joaophi.integrador_ix.R
 import com.github.joaophi.integrador_ix.databinding.FragmentProjetosBinding
 import kotlinx.coroutines.flow.launchIn
@@ -28,9 +27,6 @@ class ProjetosFragment : Fragment(R.layout.fragment_projetos) {
             navController.navigate(action)
         }
         binding.rvProjetos.adapter = adapter
-        binding.rvProjetos.addItemDecoration(
-            DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
-        )
 
         viewModel.projetos
             .onEach(adapter::submitList)
