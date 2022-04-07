@@ -14,7 +14,7 @@ import com.google.android.material.R as RM
 fun TextInputEditText.bind(
     lifecycleOwner: LifecycleOwner,
     stateFlow: MutableStateFlow<String>,
-    errorFlow: Flow<String?>,
+    errorFlow: Flow<String?> = emptyFlow(),
 ) {
     val lifecycle = lifecycleOwner.lifecycle
 

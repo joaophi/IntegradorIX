@@ -29,6 +29,13 @@ class ProjetoFragment : Fragment(R.layout.fragment_projeto) {
         binding.edtInicio.bind(viewLifecycleOwner, viewModel.inicio, viewModel.inicioError)
         binding.edtEstimativa
             .bind(viewLifecycleOwner, viewModel.estimativa, viewModel.estimativaError)
+        binding.edtLink.bind(viewLifecycleOwner, viewModel.link)
+        binding.btnAbrirLink.setOnClickListener {
+            val link = viewModel.link.value.takeIf { it.isNotBlank() } ?: return@setOnClickListener
+            findNavController().navigate(
+                ProjetoFragmentDirections.actionProjetoFragmentToWebViewFragment(link)
+            )
+        }
 
         val adapter = RequistioAdapter {
             val action = ProjetoFragmentDirections

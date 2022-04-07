@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/app"
-    app:startDestination="@id/menuFragment">
+    app:startDestination="@id/loginFragment">
     <fragment
         android:id="@+id/projetosFragment"
         android:name="com.github.joaophi.integrador_ix.projetos.ProjetosFragment"
@@ -25,6 +25,9 @@
             android:name="id"
             android:defaultValue="-1"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_projetoFragment_to_webViewFragment"
+            app:destination="@id/webViewFragment" />
     </fragment>
     <fragment
         android:id="@+id/requisitoFragment"
@@ -47,5 +50,37 @@
         <action
             android:id="@+id/action_menuFragment_to_projetosFragment"
             app:destination="@id/projetosFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.github.joaophi.integrador_ix.inicio.LoginFragment"
+        android:label="Login"
+        tools:layout="@layout/login_fragment">
+        <action
+            android:id="@+id/action_loginFragment_to_registrarUsuarioFragment"
+            app:destination="@id/registrarUsuarioFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_menuFragment"
+            app:destination="@id/menuFragment"
+            app:popUpTo="@id/app" />
+    </fragment>
+    <fragment
+        android:id="@+id/registrarUsuarioFragment"
+        android:name="com.github.joaophi.integrador_ix.inicio.RegistrarUsuarioFragment"
+        android:label="Registrar"
+        tools:layout="@layout/fragment_registrar_usuario">
+        <action
+            android:id="@+id/action_registrarUsuarioFragment_to_menuFragment"
+            app:destination="@id/menuFragment"
+            app:popUpTo="@id/app" />
+    </fragment>
+    <fragment
+        android:id="@+id/webViewFragment"
+        android:name="com.github.joaophi.integrador_ix.projetos.projeto.webview.WebViewFragment"
+        android:label="Link"
+        tools:layout="@layout/fragment_web_view">
+        <argument
+            android:name="link"
+            app:argType="string" />
     </fragment>
 </navigation>

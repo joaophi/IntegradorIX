@@ -64,6 +64,8 @@ class ProjetoViewModel(
         }
     }
 
+    val link by handle.getStateFlow(initialValue = "")
+
     val requisitos by handle.getStateFlow(initialValue = emptyList<Requisito>())
     val requisitosError = requisitos.map {
         when {
@@ -79,6 +81,7 @@ class ProjetoViewModel(
             nome.value = projeto.nome
             inicio.value = dateFormatter.format(projeto.inicio)
             estimativa.value = dateFormatter.format(projeto.estimativaConclusao)
+            link.value = projeto.link.orEmpty()
             requisitos.value = dao.getRequisitos(args.id)
         }
     }
@@ -99,8 +102,9 @@ class ProjetoViewModel(
             val inicio = LocalDate.parse(inicio.value, dateFormatter)
             val estimativa = LocalDate.parse(estimativa.value, dateFormatter)
             val requisitos = requisitos.value
+            val link = link.value.takeIf { it.isNotBlank() }
 
-            dao.save(Projeto(id, nome, inicio, estimativa), requisitos)
+            dao.save(Projeto(id, nome, inicio, estimativa, link), requisitos)
         }
     }
 

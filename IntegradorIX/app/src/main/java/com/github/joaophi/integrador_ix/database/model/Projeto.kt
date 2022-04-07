@@ -17,4 +17,7 @@ data class Projeto(
 
     @ColumnInfo(name = "estimativa_conclusao")
     val estimativaConclusao: LocalDate,
+
+    @ColumnInfo(name = "link")
+    val link: String?,
 )

@@ -3,6 +3,7 @@ package com.github.joaophi.integrador_ix
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import com.github.joaophi.integrador_ix.databinding.ActivityInicioBinding
 
@@ -16,7 +17,13 @@ class InicioActivity : AppCompatActivity() {
         val navHostFragment: NavHostFragment = binding.navHost.getFragment()
         val navController = navHostFragment.navController
 
-        NavigationUI.setupActionBarWithNavController(activity = this, navController)
+        NavigationUI.setupActionBarWithNavController(
+            activity = this,
+            navController,
+            AppBarConfiguration
+                .Builder(R.id.loginFragment, R.id.menuFragment)
+                .build()
+        )
         addMenuProvider(owner = this) { menuItem ->
             when (menuItem.itemId) {
                 android.R.id.home -> navController.navigateUp()
