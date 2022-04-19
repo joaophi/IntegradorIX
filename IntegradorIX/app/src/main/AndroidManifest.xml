@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.github.joaophi.integrador_ix">
+    package="com.github.joaophi.prova">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -15,7 +15,7 @@
         android:theme="@style/Theme.AtividadeInicio">
 
         <activity
-            android:name="com.github.joaophi.integrador_ix.InicioActivity"
+            android:name="com.github.joaophi.prova.InicioActivity"
             android:exported="true">
 
             <intent-filter>

@@ -5,20 +5,20 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="4dp"
-    tools:context=".inicio.MenuFragment">
+    tools:context=".view.inicio.MenuFragment">
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnProjetos"
+        android:id="@+id/btnIncluir"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
-        android:text="Projetos" />
+        android:text="Incluir" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnSair"
+        android:id="@+id/btnListar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
-        android:text="Sair" />
+        android:text="Listar" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

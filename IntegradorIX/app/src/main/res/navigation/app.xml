@@ -3,84 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/app"
-    app:startDestination="@id/loginFragment">
-    <fragment
-        android:id="@+id/projetosFragment"
-        android:name="com.github.joaophi.integrador_ix.projetos.ProjetosFragment"
-        android:label="Projetos"
-        tools:layout="@layout/fragment_projetos">
-        <action
-            android:id="@+id/action_projetosFragment_to_projetoFragment"
-            app:destination="@id/projetoFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/projetoFragment"
-        android:name="com.github.joaophi.integrador_ix.projetos.projeto.ProjetoFragment"
-        android:label="Projeto"
-        tools:layout="@layout/fragment_projeto">
-        <action
-            android:id="@+id/action_projetoFragment_to_requisitoFragment"
-            app:destination="@id/requisitoFragment" />
-        <argument
-            android:name="id"
-            android:defaultValue="-1"
-            app:argType="integer" />
-        <action
-            android:id="@+id/action_projetoFragment_to_webViewFragment"
-            app:destination="@id/webViewFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/requisitoFragment"
-        android:name="com.github.joaophi.integrador_ix.projetos.projeto.requisito.RequisitoFragment"
-        android:label="Requisito"
-        tools:layout="@layout/fragment_requisito">
-        <argument
-            android:name="projetoId"
-            app:argType="integer" />
-        <argument
-            android:name="id"
-            android:defaultValue="-1"
-            app:argType="integer" />
-    </fragment>
+    app:startDestination="@id/menuFragment">
     <fragment
         android:id="@+id/menuFragment"
-        android:name="com.github.joaophi.integrador_ix.inicio.MenuFragment"
+        android:name="com.github.joaophi.prova.view.inicio.MenuFragment"
         android:label="Menu"
         tools:layout="@layout/fragment_menu">
         <action
-            android:id="@+id/action_menuFragment_to_projetosFragment"
-            app:destination="@id/projetosFragment" />
+            android:id="@+id/action_menuFragment_to_listarFragment"
+            app:destination="@id/listarFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_incluirFragment"
+            app:destination="@id/incluirFragment" />
     </fragment>
     <fragment
-        android:id="@+id/loginFragment"
-        android:name="com.github.joaophi.integrador_ix.inicio.LoginFragment"
-        android:label="Login"
-        tools:layout="@layout/login_fragment">
-        <action
-            android:id="@+id/action_loginFragment_to_registrarUsuarioFragment"
-            app:destination="@id/registrarUsuarioFragment" />
-        <action
-            android:id="@+id/action_loginFragment_to_menuFragment"
-            app:destination="@id/menuFragment"
-            app:popUpTo="@id/app" />
-    </fragment>
+        android:id="@+id/incluirFragment"
+        android:name="com.github.joaophi.prova.view.incluir.IncluirFragment"
+        android:label="Incluir"
+        tools:layout="@layout/fragment_incluir" />
     <fragment
-        android:id="@+id/registrarUsuarioFragment"
-        android:name="com.github.joaophi.integrador_ix.inicio.RegistrarUsuarioFragment"
-        android:label="Registrar"
-        tools:layout="@layout/fragment_registrar_usuario">
-        <action
-            android:id="@+id/action_registrarUsuarioFragment_to_menuFragment"
-            app:destination="@id/menuFragment"
-            app:popUpTo="@id/app" />
-    </fragment>
-    <fragment
-        android:id="@+id/webViewFragment"
-        android:name="com.github.joaophi.integrador_ix.projetos.projeto.webview.WebViewFragment"
-        android:label="Link"
-        tools:layout="@layout/fragment_web_view">
-        <argument
-            android:name="link"
-            app:argType="string" />
-    </fragment>
+        android:id="@+id/listarFragment"
+        android:name="com.github.joaophi.prova.view.listar.ListarFragment"
+        android:label="Listar"
+        tools:layout="@layout/fragment_listar" />
 </navigation>

@@ -12,7 +12,7 @@ android {
     compileSdk = 31
 
     defaultConfig {
-        applicationId = "com.github.joaophi.integrador_ix"
+        applicationId = "com.github.joaophi.prova"
         minSdk = 21
         targetSdk = 31
         versionCode = 1
@@ -44,7 +44,6 @@ android {
 }
 
 dependencies {
-    implementation("androidx.legacy:legacy-support-v4:1.0.0")
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5")
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
@@ -67,8 +66,4 @@ dependencies {
 
     implementation("androidx.room:room-ktx:2.4.2")
     ksp("androidx.room:room-compiler:2.4.2")
-
-    implementation("com.google.android.gms:play-services-location:19.0.1")
-
-    implementation("at.favre.lib:bcrypt:0.9.0")
 }
